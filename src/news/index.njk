@@ -1,0 +1,31 @@
+---
+layout: base.njk
+title: AI News
+description: Latest AI tool news, releases, and updates
+permalink: /news/
+---
+
+<div class="container">
+  <div class="main-grid">
+    <div>
+      <div class="section-header">
+        <div class="section-title">AI News Feed</div>
+      </div>
+
+      <div class="news-list">
+        {% for post in collections.news %}
+        <div class="news-item">
+          <div class="news-index">{{ loop.index }}</div>
+          <div class="news-content">
+            <div class="news-tag">{{ post.data.tag | upper }}</div>
+            <div class="news-title">{{ post.data.title }}</div>
+            <div class="news-time">{{ post.date | timeAgo }}</div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    {% include "sidebar.njk" %}
+  </div>
+</div>

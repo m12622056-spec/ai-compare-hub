@@ -1,0 +1,40 @@
+---
+layout: base.njk
+title: VS Battles
+description: Head-to-head AI model comparisons and benchmarks
+permalink: /vs/
+---
+
+<div class="container">
+  <div class="main-grid">
+    <div>
+      <div class="section-header">
+        <div class="section-title">VS Battles</div>
+      </div>
+
+      <div class="reviews-grid">
+        {% for post in collections.vs %}
+        <div class="review-card">
+          <div class="review-card-type vs">VS BATTLE</div>
+          <div class="review-card-title">{{ post.data.title }}</div>
+          <div class="review-card-excerpt">{{ post.data.excerpt }}</div>
+          <div class="review-card-footer">
+            <div class="card-stars">
+              {% for i in range(0, 5) %}
+                {% if i < post.data.rating %}
+                  <span class="card-star">★</span>
+                {% else %}
+                  <span class="card-star empty">★</span>
+                {% endif %}
+              {% endfor %}
+            </div>
+            <span class="card-date">{{ post.date | readableDate }}</span>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    {% include "sidebar.njk" %}
+  </div>
+</div>

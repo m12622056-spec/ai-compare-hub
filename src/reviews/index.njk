@@ -1,0 +1,53 @@
+---
+layout: base.njk
+title: Reviews
+description: Latest AI tool reviews and benchmarks
+permalink: /reviews/
+eleventyPagination:
+  beforePageCount: 2
+  size: 12
+---
+
+<div class="container">
+  <div class="main-grid">
+    <div>
+      <div class="section-header">
+        <div class="section-title">All Reviews</div>
+      </div>
+
+      <!-- Filter chips -->
+      <div style="display: flex; gap: 0.75rem; margin-bottom: 1.5rem;">
+        <button class="tag-chip" style="border-color: var(--green); color: var(--green);">All</button>
+        <button class="tag-chip">Reviews</button>
+        <button class="tag-chip">VS Battles</button>
+        <button class="tag-chip">Benchmarks</button>
+      </div>
+
+      <div class="reviews-grid">
+        {% for post in collections.allPosts %}
+          {% if post.data.type == 'review' or post.data.type == 'vs' %}
+          <div class="review-card">
+            <div class="review-card-type {% if post.data.type == 'vs' %}vs{% endif %}">{{ post.data.type | upper }}</div>
+            <div class="review-card-title">{{ post.data.title }}</div>
+            <div class="review-card-excerpt">{{ post.data.excerpt }}</div>
+            <div class="review-card-footer">
+              <div class="card-stars">
+                {% for i in range(0, 5) %}
+                  {% if i < post.data.rating %}
+                    <span class="card-star">★</span>
+                  {% else %}
+                    <span class="card-star empty">★</span>
+                  {% endif %}
+                {% endfor %}
+              </div>
+              <span class="card-date">{{ post.date | readableDate }}</span>
+            </div>
+          </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+
+    {% include "sidebar.njk" %}
+  </div>
+</div>

@@ -1,0 +1,115 @@
+---
+layout: base.njk
+title: Home
+description: Honest, data-driven AI tool reviews built for developers and engineers.
+permalink: /
+---
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-main">
+    {% set featured = collections.allPosts[0] %}
+    {% if featured %}
+    <div class="hero-tag"><span class="tag-dot"></span>{{ featured.data.type | upper }} REVIEW</div>
+    <h1 class="hero-title">{{ featured.data.title | safe }}</h1>
+    <div class="hero-meta">{{ featured.date | readableDate }} · {{ featured.data.readTime }} MIN READ · {{ featured.data.category }}</div>
+    <div class="stars">
+      {% for i in [0,1,2,3,4] %}
+        {% if i < featured.data.rating %}
+          <span class="star">★</span>
+        {% else %}
+          <span class="star empty">★</span>
+        {% endif %}
+      {% endfor %}
+    </div>
+    <p class="hero-excerpt">{{ featured.data.excerpt }}</p>
+    <div class="hero-cta">
+      <a href="{{ featured.url }}" class="btn-primary">Read Full Review</a>
+      <a href="#" class="read-more">View Benchmarks →</a>
+    </div>
+    {% endif %}
+  </div>
+
+  <div class="hero-sidebar">
+    {% for post in collections.allPosts.slice(1, 4) %}
+    <div class="hero-side-card">
+      <div class="side-card-label">{{ post.data.type | upper }}</div>
+      <div class="side-card-title">{{ post.data.title }}</div>
+      <div class="side-card-meta">
+        <div class="side-stars">
+          {% for i in [0,1,2,3,4] %}
+            {% if i < post.data.rating %}
+              <span class="side-star">★</span>
+            {% else %}
+              <span class="side-star empty">★</span>
+            {% endif %}
+          {% endfor %}
+        </div>
+        <span>{{ post.date | readableDate }} · {{ post.data.readTime }} MIN</span>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- MAIN -->
+<div class="container">
+  <div class="main-grid">
+
+    <!-- LEFT COLUMN -->
+    <div>
+
+      <!-- Latest Reviews -->
+      <div class="section-header">
+        <div class="section-title">Latest Reviews</div>
+        <a href="/reviews/" class="see-all">View All →</a>
+      </div>
+
+      <div class="reviews-grid">
+        {% for post in collections.allPosts.slice(0, 4) %}
+        <div class="review-card">
+          <div class="review-card-type {% if post.data.type == 'vs' %}vs{% endif %}">{{ post.data.type | upper }}</div>
+          <div class="review-card-title">{{ post.data.title }}</div>
+          <div class="review-card-excerpt">{{ post.data.excerpt }}</div>
+          <div class="review-card-footer">
+            <div class="card-stars">
+              {% for i in [0,1,2,3,4] %}
+                {% if i < post.data.rating %}
+                  <span class="card-star">★</span>
+                {% else %}
+                  <span class="card-star empty">★</span>
+                {% endif %}
+              {% endfor %}
+            </div>
+            <span class="card-date">{{ post.date | readableDate }}</span>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+
+      <!-- News Feed -->
+      <div class="section-header" style="margin-top: 3rem;">
+        <div class="section-title">AI News Feed</div>
+        <a href="/news/" class="see-all">View All →</a>
+      </div>
+
+      <div class="news-list">
+        {% for post in collections.news.slice(0, 5) %}
+        <div class="news-item">
+          <div class="news-index">{{ loop.index }}</div>
+          <div class="news-content">
+            <div class="news-tag">{{ post.data.tag | upper }}</div>
+            <div class="news-title">{{ post.data.title }}</div>
+            <div class="news-time">{{ post.date | timeAgo }}</div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+
+    </div>
+
+    <!-- SIDEBAR -->
+    {% include "sidebar.njk" %}
+
+  </div>
+</div>

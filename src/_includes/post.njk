@@ -1,0 +1,45 @@
+---
+layout: base.njk
+---
+
+<article>
+  <header class="post-header">
+    <div class="post-tag {% if type == 'vs' %}vs{% endif %}">{{ type | upper }}</div>
+    <h1 class="post-title">{{ title | safe }}</h1>
+    <div class="post-meta">
+      <span>{{ date | readableDate }}</span>
+      <span>·</span>
+      <span>{{ readTime }} MIN READ</span>
+      <span>·</span>
+      <span>{{ category }}</span>
+    </div>
+    <div class="post-stars">
+      {% for i in [0,1,2,3,4] %}
+        {% if i < rating %}
+          <span class="post-star">★</span>
+        {% else %}
+          <span class="post-star empty">★</span>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </header>
+
+  <div class="post-content">
+    {{ content | safe }}
+  </div>
+</article>
+
+<!-- Related Posts -->
+<div class="related-posts">
+  <h3 class="related-title">Related Reviews</h3>
+  <div class="related-grid">
+    {% for post in collections.allPosts.slice(0, 3) %}
+      {% if post.url != page.url %}
+      <div class="related-card">
+        <a href="{{ post.url }}" class="related-title-link">{{ post.data.title }}</a>
+        <div class="related-meta">{{ post.date | readableDate }} · {{ post.data.readTime }} min</div>
+      </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>

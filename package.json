@@ -1,0 +1,20 @@
+{
+  "name": "ai-compare-hub",
+  "version": "1.0.0",
+  "description": "Honest, data-driven AI tool reviews built for developers and engineers",
+  "main": "index.js",
+  "scripts": {
+    "build": "npx @11ty/eleventy",
+    "start": "npx @11ty/eleventy --serve",
+    "watch": "npx @11ty/eleventy --watch"
+  },
+  "keywords": ["ai", "reviews", "benchmarks", "developer-tools"],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@11ty/eleventy": "^3.0.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

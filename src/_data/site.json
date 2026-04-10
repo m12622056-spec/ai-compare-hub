@@ -1,0 +1,27 @@
+{
+  "name": "AI Compare Hub",
+  "description": "Honest, data-driven AI tool reviews built for developers and engineers.",
+  "baseUrl": "https://username.github.io/ai-compare-hub",
+  "pathPrefix": "/ai-compare-hub/",
+  "author": "AI Compare Hub Team",
+  "navLinks": [
+    { "label": "Home", "url": "/" },
+    { "label": "Reviews", "url": "/reviews/" },
+    { "label": "VS Battles", "url": "/vs/" },
+    { "label": "News", "url": "/news/" },
+    { "label": "Rankings", "url": "/rankings/" },
+    { "label": "About", "url": "/about/" }
+  ],
+  "topRated": [
+    { "rank": 1, "name": "Claude 3.5 Sonnet", "category": "General / Coding", "score": 4.9, "url": "#" },
+    { "rank": 2, "name": "GPT-4o", "category": "Multimodal / API", "score": 4.7, "url": "#" },
+    { "rank": 3, "name": "Gemini 2.0 Flash", "category": "Speed / Throughput", "score": 4.5, "url": "#" },
+    { "rank": 4, "name": "Cursor AI", "category": "IDE Agent", "score": 4.4, "url": "#" },
+    { "rank": 5, "name": "Mistral Large 2", "category": "Open Source", "score": 4.3, "url": "#" }
+  ],
+  "tags": [
+    "LLM", "Code Gen", "API", "RAG", "Agents", "Open Source",
+    "Benchmarks", "Multimodal", "Fine-tuning", "IDE Tools",
+    "GPT-4o", "Claude", "Gemini", "Llama"
+  ]
+}

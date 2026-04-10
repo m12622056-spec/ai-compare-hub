@@ -1,0 +1,29 @@
+---
+layout: base.njk
+title: Rankings
+description: Top rated AI tools and models
+permalink: /rankings/
+---
+
+<div class="container" style="padding: 3rem 2.5rem;">
+  <div class="section-header">
+    <div class="section-title">Top Rated Tools</div>
+  </div>
+
+  <div class="sidebar-widget">
+    <div class="widget-body" style="padding: 0;">
+      <div class="leaderboard-list">
+        {% for item in site.topRated %}
+        <div class="leader-item">
+          <div class="leader-rank {% if item.rank <= 2 %}top{% endif %}">#{{ item.rank }}</div>
+          <div>
+            <div class="leader-name">{{ item.name }}</div>
+            <div class="leader-category">{{ item.category }}</div>
+          </div>
+          <div class="leader-score">★ {{ item.score }}</div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>

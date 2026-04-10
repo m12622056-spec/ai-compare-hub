@@ -1,0 +1,53 @@
+<aside class="sidebar">
+  <!-- Top Rated -->
+  <div class="sidebar-widget">
+    <div class="widget-header">
+      <div class="widget-title">Top Rated Tools</div>
+      <a href="/rankings/" style="font-family: var(--font-code); font-size: 0.65rem; color: var(--text-dim);">ALL →</a>
+    </div>
+    <div class="widget-body" style="padding: 0.25rem 1.25rem 1rem;">
+      <div class="leaderboard-list">
+        {% for item in site.topRated.slice(0, 5) %}
+        <div class="leader-item">
+          <div class="leader-rank {% if item.rank <= 2 %}top{% endif %}">#{{ item.rank }}</div>
+          <div>
+            <div class="leader-name">{{ item.name }}</div>
+            <div class="leader-category">{{ item.category }}</div>
+          </div>
+          <div class="leader-score">★ {{ item.score }}</div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <!-- Newsletter -->
+  <div class="sidebar-widget">
+    <div class="widget-header">
+      <div class="widget-title">Dev Newsletter</div>
+      <span style="font-family: var(--font-code); font-size: 0.62rem; color: var(--green);">FREE</span>
+    </div>
+    <div class="widget-body">
+      <p class="newsletter-desc">Weekly AI tool reviews, benchmark drops, and API news — curated for engineers. No fluff, just signal.</p>
+      <div class="input-row">
+        <input class="input-field" type="email" placeholder="your@email.dev">
+        <button class="btn-subscribe">Subscribe →</button>
+      </div>
+      <p class="newsletter-note">2,400+ devs · No spam · Unsubscribe anytime</p>
+    </div>
+  </div>
+
+  <!-- Tags -->
+  <div class="sidebar-widget">
+    <div class="widget-header">
+      <div class="widget-title">Browse by Tag</div>
+    </div>
+    <div class="widget-body">
+      <div class="tags-cloud">
+        {% for tag in site.tags %}
+        <span class="tag-chip">{{ tag }}</span>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</aside>
