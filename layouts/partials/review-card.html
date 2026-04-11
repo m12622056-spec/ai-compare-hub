@@ -1,0 +1,32 @@
+{{- $displayTitle := .Title -}}
+{{- $displayType := .Type -}}
+{{- $rating := .Params.rating -}}
+<div class="review-card">
+  {{- if eq $displayType "comparisons" }}
+  <div class="review-card-type vs">VS BATTLE</div>
+  {{- else }}
+  <div class="review-card-type">REVIEW</div>
+  {{- end }}
+  
+  <a href="{{ .Permalink }}" style="text-decoration: none; color: inherit;">
+    <div class="review-card-title">{{ $displayTitle }}</div>
+    <div class="review-card-excerpt">{{ .Summary | truncate 120 }}</div>
+    
+    <div class="review-card-footer">
+      <div class="card-stars">
+        {{- if $rating }}
+        {{- range seq 5 }}
+          {{- $starNum := . -}}
+          {{- $ratingInt := int $rating -}}
+          {{- if lt $starNum $ratingInt }}
+            <span class="card-star">★</span>
+          {{- else }}
+            <span class="card-star empty">★</span>
+          {{- end }}
+        {{- end }}
+        {{- end }}
+      </div>
+      <span class="card-date">{{ .Date.Format "Jan 02, 2006" }}</span>
+    </div>
+  </a>
+</div>

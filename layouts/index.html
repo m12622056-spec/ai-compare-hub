@@ -1,0 +1,176 @@
+{{ define "main" }}
+<!-- HERO SECTION -->
+<section class="hero">
+  <div class="hero-main">
+    {{- $featured := where .Site.RegularPages "Type" "reviews" -}}
+    {{- $topReview := index $featured 0 -}}
+    
+    {{ if $topReview }}
+    <div class="hero-tag"><span class="tag-dot"></span>HEAD-TO-HEAD REVIEW</div>
+    <h1 class="hero-title">{{ $topReview.Title }}</h1>
+    
+    {{- $dateStr := $topReview.Date.Format "Jan 02, 2006" -}}
+    <div class="hero-meta">
+      {{ $dateStr }} · 12 MIN READ · CODE GENERATION · BENCHMARKS
+    </div>
+    
+    <div class="stars">
+      {{- $topRating := int $topReview.Params.rating }}
+      {{- range seq 5 }}
+        {{- $starNum := . }}
+        {{- if lt $starNum $topRating }}
+          <span class="star">★</span>
+        {{- else }}
+          <span class="star empty">★</span>
+        {{- end }}
+      {{- end }}
+    </div>
+    
+    <p class="hero-excerpt">{{ $topReview.Description }}</p>
+    
+    <div class="hero-cta">
+      <a href="{{ $topReview.Permalink }}" class="btn-primary">Read Full Review</a>
+      <a href="{{ $topReview.Permalink }}#benchmarks" class="read-more">View Benchmarks →</a>
+    </div>
+    {{ end }}
+  </div>
+
+  <div class="hero-sidebar">
+    {{- $sidebarItems := (where .Site.RegularPages "Type" "in" (slice "reviews" "comparisons")) | first 3 }}
+    {{- range $sidebarItems }}
+    <div class="hero-side-card">
+      <div class="side-card-label">{{ upper .Type }}</div>
+      <div class="side-card-title">{{ .Title }}</div>
+      <div class="side-card-meta">
+        {{- if .Params.rating }}
+        <div class="side-stars">
+          {{- $rating := int .Params.rating }}
+          {{- range seq 5 }}
+            {{- $starNum := . }}
+            {{- if lt $starNum $rating }}
+              <span class="side-star">★</span>
+            {{- else }}
+              <span class="side-star empty">★</span>
+            {{- end }}
+          {{- end }}
+        </div>
+        {{- end }}
+        <span>{{ .Date.Format "Jan 02" }} · 8 MIN</span>
+      </div>
+    </div>
+    {{- end }}
+  </div>
+</section>
+
+<!-- MAIN CONTENT -->
+<div class="container">
+  <div class="main-grid">
+    <!-- LEFT COLUMN: Reviews & News -->
+    <div class="content-area">
+      <!-- Latest Reviews -->
+      <div class="section-header">
+        <div class="section-title">Latest Reviews</div>
+        <a href="/reviews/" class="see-all">View All →</a>
+      </div>
+
+      <div class="reviews-grid">
+        {{- $reviews := (where .Site.RegularPages "Type" "reviews") | first 4 }}
+        {{- range $reviews }}
+        {{ partial "review-card.html" . }}
+        {{- end }}
+      </div>
+
+      <!-- News Feed -->
+      <div class="section-header" style="margin-top: 3rem;">
+        <div class="section-title">AI News Feed</div>
+        <a href="/news/" class="see-all">View All →</a>
+      </div>
+
+      <div class="news-list">
+        {{- $news := (where .Site.RegularPages "Type" "news") | first 5 }}
+        {{- $index := 1 }}
+        {{- range $news }}
+        <div class="news-item">
+          <div class="news-index">{{ printf "%02d" $index }}</div>
+          <div class="news-content">
+            <div class="news-tag">{{ if .Params.tag }}{{ .Params.tag }}{{ else }}NEWS{{ end }}</div>
+            <div class="news-title">{{ .Title }}</div>
+            <div class="news-time">2 HOURS AGO</div>
+          </div>
+        </div>
+        {{- $index = add $index 1 }}
+        {{- end }}
+      </div>
+    </div>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <!-- Top Rated Leaderboard -->
+      <div class="sidebar-widget">
+        <div class="widget-header">
+          <div class="widget-title">Top Rated Tools</div>
+          <a href="/reviews/?sort=rating" style="font-family: var(--font-code); font-size: 0.65rem; color: var(--text-dim);">ALL →</a>
+        </div>
+        <div class="widget-body" style="padding: 0.25rem 1.25rem 1rem;">
+          <div class="leaderboard-list">
+            {{- $topRated := (where .Site.RegularPages "Params.rating" "ge" 4.0) }}
+            {{- $sorted := sort $topRated "Params.rating" "desc" | first 5 }}
+            {{- $rank := 1 }}
+            {{- range $sorted }}
+            <div class="leader-item">
+              <div class="leader-rank{{ if eq $rank 1 }} top{{ end }}">#{{ $rank }}</div>
+              <div>
+                <div class="leader-name">{{ .Title }}</div>
+                <div class="leader-category">{{ if .Params.category }}{{ .Params.category }}{{ else }}General{{ end }}</div>
+              </div>
+              <div class="leader-score">★ {{ .Params.rating }}</div>
+            </div>
+            {{- $rank = add $rank 1 }}
+            {{- end }}
+          </div>
+        </div>
+      </div>
+
+      <!-- Newsletter Widget -->
+      <div class="sidebar-widget">
+        <div class="widget-header">
+          <div class="widget-title">Dev Newsletter</div>
+          <span style="font-family: var(--font-code); font-size: 0.62rem; color: var(--green);">FREE</span>
+        </div>
+        <div class="widget-body">
+          <p class="newsletter-desc">Weekly AI tool reviews, benchmark drops, and API news — curated for engineers. No fluff, just signal.</p>
+          <div class="input-row">
+            <input class="input-field" type="email" placeholder="your@email.dev">
+            <button class="btn-subscribe">Subscribe →</button>
+          </div>
+          <p class="newsletter-note">2,400+ devs · No spam · Unsubscribe anytime</p>
+        </div>
+      </div>
+
+      <!-- Tags Cloud -->
+      <div class="sidebar-widget">
+        <div class="widget-header">
+          <div class="widget-title">Browse by Tag</div>
+        </div>
+        <div class="widget-body">
+          <div class="tags-cloud">
+            <a href="/tags/llm/" class="tag-chip">LLM</a>
+            <a href="/tags/code-gen/" class="tag-chip">Code Gen</a>
+            <a href="/tags/api/" class="tag-chip">API</a>
+            <a href="/tags/rag/" class="tag-chip">RAG</a>
+            <a href="/tags/agents/" class="tag-chip">Agents</a>
+            <a href="/tags/open-source/" class="tag-chip">Open Source</a>
+            <a href="/tags/benchmarks/" class="tag-chip">Benchmarks</a>
+            <a href="/tags/multimodal/" class="tag-chip">Multimodal</a>
+            <a href="/tags/ide-tools/" class="tag-chip">IDE Tools</a>
+            <a href="/tags/gpt-4o/" class="tag-chip">GPT-4o</a>
+            <a href="/tags/claude/" class="tag-chip">Claude</a>
+            <a href="/tags/gemini/" class="tag-chip">Gemini</a>
+            <a href="/tags/llama/" class="tag-chip">Llama</a>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+</div>
+{{ end }}

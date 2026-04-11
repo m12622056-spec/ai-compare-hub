@@ -1,0 +1,39 @@
+# AI Compare Hub - Hugo Configuration
+baseURL = "https://m0hajejdkk.github.io/ai-compare-hub/"
+languageCode = "en-us"
+title = "AI Compare Hub | Developer-First AI Tool Reviews"
+# theme = "custom"  # Not needed - using local layouts
+
+# Publish directory for GitHub Pages
+publishDir = "docs"
+
+# SEO & Metadata
+[taxonomies]
+  tag = "tags"
+  category = "categories"
+
+[params]
+  description = "Honest, benchmark-driven reviews of AI coding assistants, LLM APIs, and developer tools. Technical deep dives for engineers."
+  keywords = "AI reviews, LLM benchmarks, coding assistants, GPT-4o, Claude 3.5, Cursor AI, developer tools"
+  social_image = "/images/og-default.jpg"
+  site_url = "https://m0hajejdkk.github.io/ai-compare-hub/"
+  
+  # Google Analytics & AdSense
+  analytics_id = ""  # Fill with GA4 Measurement ID: G-XXXXXXXX
+  adsense_id = "ca-pub-XXXXX"  # Fill after AdSense approval
+  
+  # Author info
+  author = "Mohamed"
+  twitter_handle = "@m0hajejdkk"
+
+[markup.goldmark.renderer]
+  unsafe = true  # Allow HTML in markdown (for embedded code blocks, etc.)
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]  # JSON for search functionality
+
+[permalinks]
+  reviews = "/reviews/:slug/"
+  comparisons = "/comparisons/:slug/"
+  news = "/news/:slug/"
+
