@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "eleventy-plugin-gen-favicons": "^1.1.3"
+  }
+}
